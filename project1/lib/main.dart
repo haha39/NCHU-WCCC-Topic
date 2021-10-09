@@ -36,7 +36,7 @@ class _MyHomePageState extends State<MyHomePage> {
           PopupMenuButton<String>(
             onSelected: handleClick,
             itemBuilder: (BuildContext context) {
-              return {'App介紹', '每日接觸狀況','確診者上船隨機ID','注意事項及個資保護說明',
+              return {'App介紹', '每日接觸狀況','確診者上傳隨機ID','注意事項及個資保護說明',
                 '資料權限控制','常見問題','功能提示'}.map((String choice) {
                 return PopupMenuItem<String>(
                   value: choice,
@@ -48,7 +48,7 @@ class _MyHomePageState extends State<MyHomePage> {
         ],
       ),
       body: //Center(
-        /*child:*/ LayoutBuilder(
+        /*child: */LayoutBuilder(
           builder: (context, constraints) => Column(
                 mainAxisSize: MainAxisSize.min,
                 //mainAxisSize: MainAxisSize.max,
@@ -82,8 +82,16 @@ class _MyHomePageState extends State<MyHomePage> {
                     ),
                   ),
                   Container(
-                    color: Colors.teal,
-                    child: Text('接觸通知功能已開啟'),
+                    //color: Color.fromARGB(20, 226, 207, 100),
+                    color: Colors.cyan,
+                    child: Column(
+                      //mainAxisAlignment: MainAxisAlignment.center,
+                      //mainAxisSize: MainAxisSize.max,
+                      children: <Widget>[
+                        Text('接觸通知功能已開啟'),
+                      ]
+                    ),
+                    margin: EdgeInsets.fromLTRB(50, 20, 50, 0),
                   ),
                   Text(
                     '\n接觸通知功能啟用時間1967/2/20 19:58',
@@ -111,8 +119,8 @@ class _MyHomePageState extends State<MyHomePage> {
                   ),
                 ],
               ),
-            )
-      //),
+            //)
+      ),
     );
   }
 }
@@ -125,5 +133,4 @@ void handleClick(String value) {
       break;
   }
 }
-
 
