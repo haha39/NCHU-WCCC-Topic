@@ -26,6 +26,11 @@ class MyHomePage extends StatefulWidget {
   _MyHomePageState createState() => _MyHomePageState();
 }
 
+//
+
+enum AppMenu { appIntroduction, dailyExposure, uploadsRandomID,
+  instructions,DataAccessControl, commonProblem, functionTips }
+
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
@@ -33,18 +38,48 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
         actions: <Widget>[
-          PopupMenuButton<String>(
-            onSelected: handleClick,
-            itemBuilder: (BuildContext context) {
-              return {'App介紹', '每日接觸狀況','確診者上傳隨機ID','注意事項及個資保護說明',
-                '資料權限控制','常見問題','功能提示'}.map((String choice) {
-                return PopupMenuItem<String>(
-                  value: choice,
-                  child: Text(choice),
-                );
-              }).toList();
+          PopupMenuButton<AppMenu>(
+            onSelected: (AppMenu result) {
+              switch(result) {
+                case  AppMenu.uploadsRandomID:
+                  showAlert(context);
+                  break;
+                /*case AppMenu.selfStarter:
+                  print("hahahahaha");
+                  break;*/
+              }
             },
-          ),
+            itemBuilder: (BuildContext context) => <PopupMenuEntry<AppMenu>>[
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.appIntroduction,
+                child: Text("App介紹"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.dailyExposure,
+                child: Text("每日接觸狀況"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.uploadsRandomID,
+                child: Text("確診者上傳隨機ID"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.instructions,
+                child: Text("注意事項及個資保護說明"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.DataAccessControl,
+                child: Text("資料權限控制"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.commonProblem,
+                child: Text("常見問題"),
+              ),
+              const PopupMenuItem<AppMenu>(
+                value: AppMenu.functionTips,
+                child: Text("功能提示"),
+              ),
+            ],
+          )
         ],
       ),
       body: //Center(
@@ -126,11 +161,41 @@ class _MyHomePageState extends State<MyHomePage> {
 }
 
 void handleClick(String value) {
+  //BuildContext context;
+
   switch (value) {
-    case 'App介紹':
+    case '確診者上傳隨機ID':
+      //showAlert(context)
       break;
-    case '每日接觸狀況':
-      break;
+    /*case '每日接觸狀況':
+      break;*/
   }
 }
+
+Future<void> showAlert(BuildContext context) {
+  return showDialog<void>(
+    context: context,
+    builder: (BuildContext context) {
+      return AlertDialog(
+        title: Text("你是確診者嗎"),
+        content: const Text("此功能為提供確診者上傳隨機ID以減少疫情擴散"),
+        actions: <Widget>[
+          TextButton(
+            child: Text('否'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+          TextButton(
+            child: Text('是'),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ],
+      );
+    },
+  );
+}
+
 
