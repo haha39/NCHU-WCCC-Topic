@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
 
 void main() {
   runApp(MyApp());
@@ -160,17 +161,6 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-void handleClick(String value) {
-  //BuildContext context;
-
-  switch (value) {
-    case '確診者上傳隨機ID':
-      //showAlert(context)
-      break;
-    /*case '每日接觸狀況':
-      break;*/
-  }
-}
 
 Future<void> showAlert(BuildContext context) {
   return showDialog<void>(
@@ -189,6 +179,12 @@ Future<void> showAlert(BuildContext context) {
           TextButton(
             child: Text('是'),
             onPressed: () {
+              var url = 'https://nchu-wccc-topic-fe-test-01.herokuapp.com/receivePOST';
+              http.post(Uri.parse(url), body: {'time': DateTime.now().toString(), 'message': 'Hello, flutter!'}).then((response) {
+                print('status: ${response.statusCode}');
+                print('content: ${response.body}');
+                }
+              );
               Navigator.of(context).pop();
             },
           ),
